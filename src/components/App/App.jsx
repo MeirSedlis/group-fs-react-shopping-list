@@ -1,5 +1,4 @@
-import React from 'react';
-
+import { useState, useEffect } from 'react';
 import Header from '../Header/Header.jsx'
 import './App.css';
 

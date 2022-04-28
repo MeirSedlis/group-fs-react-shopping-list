@@ -10,7 +10,7 @@ router.get('/', (req, res) => {
     
     const sqlText = `
       SELECT * FROM "shoppingList"
-        ORDER BY name, origin DESC;
+        ORDER BY "id" DESC;
     `;
     pool.query(sqlText)
       .then((dbResult) => {
@@ -25,9 +25,10 @@ router.get('/', (req, res) => {
 /// POST route
   router.post('/', (req, res) => {
     const list = req.body;
+    console.log('heeeeeeres body!', req.body);
     const sqlText = `
       INSERT INTO "shoppingList"
-        (name, quantity, unit)
+        ("name", "quantity", "unit")
           VALUES
           ($1, $2, $3)
       `;

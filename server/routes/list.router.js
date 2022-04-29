@@ -38,6 +38,45 @@ router.get('/', (req, res) => {
       list.unit
 
     ]
+
+    router.put("/:itemId", (req, res) => {
+      let sqlQuery = `
+          UPDATE "shoppingList"
+            SET "purchased"=$1
+            WHERE "id"=$2;
+        `;
+      let sqlValues = [req.body.description, req.params.treatId];
+      pool
+        .query(sqlQuery, sqlValues)
+        .then((dbResult) => {
+          res.sendStatus(200);
+        })
+        .catch((dbError) => {
+          console.log("error in PUT /treats db request:");
+          res.sendStatus(500);
+        });
+    });
+
+    router.delete("/:treatId", (req, res) => {
+      let treatToDelete = req.params.treatId;
+      let sqlQuery = `
+          DELETE FROM "treats"
+            WHERE "id"=$1;
+        `;
+      let sqlValues = [treatToDelete];
+      pool
+        .query(sqlQuery, sqlValues)
+        .then((dbResult) => {
+          res.sendStatus(200);
+        })
+        .catch((dbError) => {
+          console.log("error in DELETE /treats db request:");
+          res.sendStatus(500);
+        });
+    });
+    
+    module.exports = router;
+    
     // Let sql sanitize your inputs (NO Bobby Drop Tables here!)
     // the $1, $2, etc get substituted with the values from the array below
     pool.query(sqlText, sqlValues)

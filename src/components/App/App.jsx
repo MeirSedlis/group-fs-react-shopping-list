@@ -40,6 +40,30 @@ function App() {
       
       }
 
+    //   function handleClick(e){
+    //     e.preventDefault();
+    //     updateItem();
+    //   }
+
+      const updateItem = (itemId) => {
+          console.log('this will update!');
+          axios({
+              method: 'PUT',
+              url: `/list/${itemId}`
+          }) .then(function(response) {
+              console.log(response);
+              getItems();
+          }) .catch(function(error){
+              console.log(error);
+          })
+
+      }
+
+      const deleteItem = (e) => {
+        e.preventDefault();
+        console.log('this will delete!');
+    }
+
     return (
         <div className="App">
             <Header />
@@ -51,7 +75,11 @@ function App() {
                 <ul>
                 {shoppingList.map((item) => {
                 return (
-                    <li key = {item.id}>{item.name}, {item.quantity} {item.unit}</li>
+                    <div key = {item.id}>
+                        <li>{item.name}, {item.quantity} {item.unit}</li>
+                        <button onClick = {()=>updateItem(item.id)}>Buy</button>
+                        <button onClick = {deleteItem}>Remove</button>
+                    </div>
                     )
                 })}
                 </ul>

@@ -40,6 +40,17 @@ function App() {
       
       }
 
+      const updateItem = (e) => {
+          e.preventDefault();
+          console.log('this will update!');
+          
+      }
+
+      const deleteItem = (e) => {
+        e.preventDefault();
+        console.log('this will delete!');
+    }
+
     return (
         <div className="App">
             <Header />
@@ -51,7 +62,11 @@ function App() {
                 <ul>
                 {shoppingList.map((item) => {
                 return (
-                    <li key = {item.id}>{item.name}, {item.quantity} {item.unit}</li>
+                    <form key = {item.id}>
+                        <li>{item.name}, {item.quantity} {item.unit}</li>
+                        <button onClick = {updateItem}>Buy</button>
+                        <button onClick = {deleteItem}>Remove</button>
+                    </form>
                     )
                 })}
                 </ul>

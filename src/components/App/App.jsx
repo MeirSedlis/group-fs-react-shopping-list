@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Header from '../Header/Header.jsx'
 import './App.css';
+import ItemForm from '../ItemForm/ItemForm.jsx';
 
 
 
@@ -25,13 +26,8 @@ function App() {
         })
       }
 
-      const addItem = (e) => {
-        e.preventDefault();
-        let newItem = {
-          name: name,
-          quantity: quantity,
-          unit: unit
-        }
+      const addItem = (newItem) => {
+        
         axios({
           method: 'POST',
           url: '/list',
@@ -49,6 +45,17 @@ function App() {
             <Header />
             <main>
                 <p>Under Construction...</p>
+                <>
+                <ItemForm addItem={addItem} />
+                </>
+                <ul>
+                {shoppingList.map((item) => {
+                return (
+                    <li key = {item.id}>{item.name}, {item.quantity} {item.unit}</li>
+                    )
+                })}
+                </ul>
+               
             </main>
         </div>
     );
